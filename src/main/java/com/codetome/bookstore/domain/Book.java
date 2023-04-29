@@ -15,7 +15,7 @@ public class Book {
     private String Name;
     private Double Price;
     private Integer Quantity;
-    private String ImagePath;
+    private String Image;
     private Category category;
     private Author author;
 

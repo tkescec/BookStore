@@ -1526,7 +1526,7 @@ function nextPointWithEmptyNode(point, isSkipInnerOffset) {
   };
 }
 /*
-* returns the next Text node index or 0 if not found.
+* returns the next Text node index.html or 0 if not found.
 */
 
 
@@ -4415,7 +4415,7 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
     };
   }
   /**
-   * Recover free index of row to append Cell.
+   * Recover free index.html of row to append Cell.
    *
    * @param {int} rowIndex Index of row to find free space.
    * @param {int} cellIndex Index of cell to find free space in table.

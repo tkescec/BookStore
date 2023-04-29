@@ -14,4 +14,4 @@ if (isInBrowser) {
 //@ts-ignore
 window.scrollMonitor = scrollMonitor;
 export default scrollMonitor;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.html.js.map

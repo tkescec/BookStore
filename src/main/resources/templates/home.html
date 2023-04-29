@@ -16,7 +16,7 @@
                                 Books
                                 <small>Shop and get your favourite book at amazing prices!</small>
                             </span>
-                        <a href="#" class="btn">SHOW ALL</a>
+
                     </h4>
                     <!-- END section-title -->
                     <!-- BEGIN category-container -->
@@ -36,9 +36,9 @@
                                 <!-- BEGIN item-row -->
                                 <div class="item-row">
                                     <!-- BEGIN item -->
-                                    <div class="item item-thumbnail" th:each="book:${allBooks.subList(0,6)}" style="border-bottom: solid 1px #ced4da">
+                                    <div class="item item-thumbnail" th:each="book:${allBooks}" style="border-bottom: solid 1px #ced4da">
                                         <a href="product_detail.html" class="item-image">
-                                            <img src="img/product/product-iphone.png" alt="" />
+                                            <img th:src="${book.image}" alt="" />
                                             <div class="discount" th:text="${book.category.name}">Book category...</div>
                                         </a>
                                         <div class="item-info">

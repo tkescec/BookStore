@@ -8,8 +8,8 @@
         <meta content="" name="author" />
 
         <!-- ================== BEGIN core-css ================== -->
-        <link href="css/vendor.min.css" rel="stylesheet" />
-        <link href="css/default/app.min.css" rel="stylesheet" />
+        <link href="/admin/css/vendor.min.css" rel="stylesheet" />
+        <link href="/admin/css/default/app.min.css" rel="stylesheet" />
         <!-- ================== BEGIN page-css ================== -->
 
         <!-- ================== END page-css ================== -->
@@ -20,9 +20,129 @@
             <span class="spinner"></span>
         </div>
         <!-- END #loader -->
+        <!-- BEGIN #app -->
+        <div id="app" class="app app-header-fixed app-sidebar-fixed">
+            <!-- BEGIN #header -->
+            <div id="header" class="app-header">
+                <!-- BEGIN navbar-header -->
+                <div class="navbar-header">
+                    <a href="/admin/dashboard" class="navbar-brand"><span class="navbar-logo"></span> <b>Book</b> Store</a>
+                    <button type="button" class="navbar-mobile-toggler" data-toggle="app-sidebar-mobile">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- END navbar-header -->
+
+                <!-- BEGIN header-nav -->
+                <div class="navbar-nav">
+                    <div class="navbar-item navbar-user dropdown">
+                        <a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                            <img src="/admin/img/user/user-13.jpg" alt="" />
+                            <span>
+							<span class="d-none d-md-inline">Tomislav Kescec</span>
+							<b class="caret"></b>
+						</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end me-1">
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="logout" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END header-nav -->
+            </div>
+            <!-- END #header -->
+
+            <!-- BEGIN #sidebar -->
+            <div id="sidebar" class="app-sidebar">
+                <!-- BEGIN scrollbar -->
+                <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+                    <!-- BEGIN menu -->
+                    <div class="menu">
+                        <div class="menu-profile">
+                            <a href="javascript:;" class="menu-profile-link" data-toggle="app-sidebar-profile" data-target="#appSidebarProfileMenu">
+                                <div class="menu-profile-cover with-shadow"></div>
+                                <div class="menu-profile-image">
+                                    <img src="/admin/img/user/user-13.jpg" alt="" />
+                                </div>
+                                <div class="menu-profile-info">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            Tomislav Kescec
+                                        </div>
+                                        <div class="menu-caret ms-auto"></div>
+                                    </div>
+                                    <small>Administrator</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="appSidebarProfileMenu" class="collapse">
+                            <div class="menu-item pt-5px">
+                                <a href="javascript:;" class="menu-link">
+                                    <div class="menu-icon"><i class="fa fa-cog"></i></div>
+                                    <div class="menu-text">Settings</div>
+                                </a>
+                            </div>
+                            <div class="menu-divider m-0"></div>
+                        </div>
+                        <div class="menu-header">Navigation</div>
+                        <div class="menu-item" th:classappend="${requestUri == '/admin/dashboard' ? 'active':''}">
+                            <a href="/admin/dashboard" class="menu-link">
+                                <div class="menu-icon">
+                                    <i class="fa fa-sitemap"></i>
+                                </div>
+                                <div class="menu-text">Dashboard</div>
+                            </a>
+                        </div>
+
+                        <div class="menu-item has-sub" th:classappend="${requestUri.startsWith('/admin/category') ? 'active':''}">
+                            <a href="javascript:;" class="menu-link">
+                                <div class="menu-icon">
+                                    <i class="fa fa-folder-open"></i>
+                                </div>
+                                <div class="menu-text">Categories</div>
+                                <div class="menu-caret"></div>
+                            </a>
+                            <div class="menu-submenu">
+                                <div class="menu-item" th:classappend="${requestUri == '/admin/category/index' ? 'active':''}">
+                                    <a href="/admin/category/index" class="menu-link">
+                                        <div class="menu-text">All categories</div>
+                                    </a>
+                                </div>
+                                <div class="menu-item" th:classappend="${requestUri == '/admin/category/create' ? 'active':''}">
+                                    <a href="/admin/category/create" class="menu-link">
+                                        <div class="menu-text">Add new</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- END menu -->
+                </div>
+                <!-- END scrollbar -->
+            </div>
+            <div class="app-sidebar-bg"></div>
+            <div class="app-sidebar-mobile-backdrop"><a href="#" data-dismiss="app-sidebar-mobile" class="stretched-link"></a></div>
+            <!-- END #sidebar -->
+
+            <!-- BEGIN #content -->
+            <div id="content" class="app-content" layout:fragment="content">
+                <p>Page content goes here</p>
+            </div>
+            <!-- END #content -->
+
+            <!-- BEGIN scroll-top-btn -->
+            <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+            <!-- END scroll-top-btn -->
+        </div>
+        <!-- END #app -->
         <!-- ================== BEGIN BASE JS ================== -->
-        <script src="js/vendor.min.js"></script>
-        <script src="js/app.min.js"></script>
+        <script src="/admin/js/vendor.min.js"></script>
+        <script src="/admin/js/app.min.js"></script>
         <!-- ================== BEGIN page-js ================== -->
 
         <!-- ================== END page-js ================== -->

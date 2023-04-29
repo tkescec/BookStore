@@ -39,4 +39,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     window.scrollMonitor = scrollMonitor;
     exports.default = scrollMonitor;
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.html.js.map

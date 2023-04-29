@@ -24,7 +24,7 @@ public class BookRepositoryJdbc implements BookRepository{
 
     @Override
     public List<Book> getAllBooks() {
-        String query = "SELECT b.IDBook, b.ISBN, b.Name as BookName, b.Price, b.Quantity, b.ImagePath, c.IDCategory, c.Name as CategoryName, a.IDAuthor, a.FirstName, a.LastName " +
+        String query = "SELECT b.IDBook, b.ISBN, b.Name as BookName, b.Price, b.Quantity, b.Image, c.IDCategory, c.Name as CategoryName, a.IDAuthor, a.FirstName, a.LastName " +
                 "FROM `book` as b " +
                 "inner JOIN `category` as c " +
                 "ON b.CategoryID = c.IDCategory " +
@@ -38,7 +38,7 @@ public class BookRepositoryJdbc implements BookRepository{
                         result.getString("BookName"),
                         result.getDouble("Price"),
                         result.getInt("Quantity"),
-                        result.getString("ImagePath"),
+                        result.getString("Image"),
                         new Category(
                                 result.getInt("IDCategory"),
                                 result.getString("CategoryName")

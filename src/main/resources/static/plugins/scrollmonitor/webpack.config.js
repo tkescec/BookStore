@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry: {
-		scrollMonitor: __dirname + '/index.js',
+		scrollMonitor: __dirname + '/index.html.js',
 	},
 	output: {
 		filename: '[name].js',
