@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>New Book</title>
+</head>
+<body>
+    <section layout:fragment="content">
+        <!-- BEGIN breadcrumb -->
+        <ol class="breadcrumb float-xl-end">
+            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin/book/index">Books</a></li>
+            <li class="breadcrumb-item active">Add New</li>
+        </ol>
+        <!-- END breadcrumb -->
+        <!-- BEGIN page-header -->
+        <h1 class="page-header">Books</h1>
+        <!-- END page-header -->
+
+        <!-- BEGIN row -->
+        <div class="row">
+            <!-- BEGIN col-12 -->
+            <div class="col-12">
+                <!-- BEGIN panel -->
+                <div class="panel panel-inverse" data-sortable-id="table-basic-7">
+                    <!-- BEGIN panel-heading -->
+                    <div class="panel-heading">
+                        <h4 class="panel-title">New Book</h4>
+                        <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- END panel-heading -->
+                    <!-- BEGIN panel-body -->
+                    <div class="panel-body">
+                        <form action="#" th:action="@{/admin/book/store}" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label" for="name">Book Name</label>
+                                <input class="form-control" type="text" name="Name" id="name" placeholder="Enter book name" required/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="category">Category</label>
+                                <select class="form-select" name="CategoryID" id="category" required>
+                                    <option value="">Choose category</option>
+                                    <option th:each="singleCategory:${categories}"
+                                            th:value="${singleCategory.IDCategory}"
+                                            th:text="${singleCategory.name}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="authors">Author</label>
+                                <select class="form-select" name="AuthorID" id="authors" required>
+                                    <option value="">Choose author</option>
+                                    <option th:each="singleAuthor:${authors}"
+                                            th:value="${singleAuthor.IDAuthor}"
+                                            th:text="${singleAuthor.firstName + ' ' + singleAuthor.lastName}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="isbn">ISBN</label>
+                                <input class="form-control" type="text" name="ISBN" id="isbn" placeholder="Enter book isbn" required/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="price">Book Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">€</span>
+                                    <input class="form-control" type="text" name="Price" id="price" placeholder="Enter book price" required/>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="quantity">Book Quantity</label>
+                                <input class="form-control" type="number" name="Quantity" id="quantity" placeholder="Enter book quantity" required/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="image">Book Image</label>
+                                <input class="form-control" type="file" name="Image" id="image" accept="image/png, image/jpeg" />
+                            </div>
+
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Add new book</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- END panel-body -->
+                </div>
+                <!-- END panel -->
+            </div>
+            <!-- END col-12 -->
+        </div>
+        <!-- END row -->
+    </section>
+</body>
+</html>

@@ -3,7 +3,7 @@
       layout:decorate="~{admin/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>All Categories</title>
+    <title>All Books</title>
 </head>
 <body>
     <section layout:fragment="content">
@@ -11,12 +11,12 @@
             <div>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Categories</li>
+                    <li class="breadcrumb-item active">Books</li>
                 </ol>
-                <h1 class="page-header mb-0">Categories</h1>
+                <h1 class="page-header mb-0">Books</h1>
             </div>
             <div class="ms-auto">
-                <a href="/admin/category/create" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add Category</a>
+                <a href="/admin/book/create" class="btn btn-success btn-rounded px-4 rounded-pill"><i class="fa fa-plus fa-lg me-2 ms-n2 text-success-900"></i> Add Book</a>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
                 <div class="panel panel-inverse" data-sortable-id="table-basic-7">
                     <!-- BEGIN panel-heading -->
                     <div class="panel-heading">
-                        <h4 class="panel-title">All Categories</h4>
+                        <h4 class="panel-title">All Books</h4>
                         <div class="panel-heading-btn">
                             <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
                             <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -40,23 +40,35 @@
                     <!-- BEGIN panel-body -->
                     <div class="panel-body">
                         <!-- BEGIN table-responsive -->
-                        <div class="table-responsive" th:switch="${allCategories}">
-                            <h2 th:case="null">No categories yet!</h2>
+                        <div class="table-responsive" th:switch="${allBooks}">
+                            <h2 th:case="null">No books yet!</h2>
                             <table class="table table-striped mb-0 align-middle" th:case="*">
                                 <thead>
                                     <tr>
                                         <th style="width: 1%">#</th>
                                         <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Author</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
                                         <th style="width: 1%"> </th>
                                     </tr>
                                 </thead>
-                                <tbody th:switch="${allCategories}">
-                                    <tr th:each="category:${allCategories}">
-                                        <td th:text="${category.IDCategory}">Category id ..</td>
-                                        <td th:text="${category.name}">Category name...</td>
+                                <tbody th:switch="${allBooks}">
+                                    <tr th:each="book:${allBooks}">
+                                        <td>
+                                            <img th:src="@{'data:image/jpeg;base64,'+${book.image}}" style="width: 50px">
+                                        </td>
+                                        <td>
+                                            <h6 th:text="${book.name}">Book name...</h6>
+                                        </td>
+                                        <td th:text="${book.category.name}">Category name...</td>
+                                        <td th:text="${book.author.firstName + ' ' + book.author.lastName}">Author name...</td>
+                                        <td th:text="${'€' + book.getFormattedPrice()}">Book price...</td>
+                                        <td th:text="${book.quantity}">Book quantity...</td>
                                         <td nowrap>
-                                            <a th:href="@{'/admin/category/edit/' + ${category.IDCategory}}" class="btn btn-sm btn-primary w-60px me-1" >Edit</a>
-                                            <a th:href="@{'/admin/category/delete/' + ${category.IDCategory}}" class="btn btn-sm btn-danger w-60px deleteCategory">Delete</a>
+                                            <a th:href="@{'/admin/book/edit/' + ${book.IDBook}}" class="btn btn-sm btn-primary w-60px me-1" >Edit</a>
+                                            <a th:href="@{'/admin/book/delete/' + ${book.IDBook}}" class="btn btn-sm btn-danger w-60px deleteBook">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -75,10 +87,10 @@
 
     <div layout:fragment="javascript">
         <script>
-            const deleteCategory = document.querySelectorAll(".deleteCategory");
+            const deleteBook = document.querySelectorAll(".deleteBook");
 
-            for (const deleteCategoryElement of deleteCategory) {
-                deleteCategoryElement.addEventListener("click", (e) => {
+            for (const deleteBookElement of deleteBook) {
+                deleteBookElement.addEventListener("click", (e) => {
                     e.preventDefault();
                     const href = e.target.href;
 
@@ -108,7 +120,6 @@
                     });
                 })
             }
-
         </script>
     </div>
 </body>

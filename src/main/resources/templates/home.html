@@ -38,7 +38,7 @@
                                     <!-- BEGIN item -->
                                     <div class="item item-thumbnail" th:each="book:${allBooks}" style="border-bottom: solid 1px #ced4da">
                                         <a href="product_detail.html" class="item-image">
-                                            <img th:src="${book.image}" alt="" />
+                                            <img th:src="@{'data:image/jpeg;base64,'+${book.image}}" alt="" />
                                             <div class="discount" th:text="${book.category.name}">Book category...</div>
                                         </a>
                                         <div class="item-info">
