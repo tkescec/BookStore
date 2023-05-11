@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Books</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #mobile-list -->
+    <div id="mobile-list" class="section-container">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN section-title -->
+            <h4 class="section-title clearfix">
+                            <span class="flex-1">
+                                Books
+                                <small>Shop and get your favourite book at amazing prices!</small>
+                            </span>
+
+            </h4>
+            <!-- END section-title -->
+            <!-- BEGIN category-container -->
+            <div class="category-container">
+                <!-- BEGIN category-sidebar -->
+                <!--                        <div class="category-sidebar">-->
+                <!--                            <ul class="category-list">-->
+                <!--                                <li class="list-header">Top Categories</li>-->
+                <!--                                <li th:each="category:${allCategories}"><a href="#" th:text="${category.name}"></a></li>-->
+                <!--                            </ul>-->
+                <!--                        </div>-->
+                <!-- END category-sidebar -->
+                <!-- BEGIN category-detail -->
+                <div class="category-detail" style="border-left: solid 1px #ced4da">
+                    <!-- BEGIN category-item -->
+                    <div class="category-item list">
+                        <!-- BEGIN item-row -->
+                        <div class="item-row">
+                            <!-- BEGIN item -->
+                            <div class="item item-thumbnail" th:each="book:${allBooks}" style="border-bottom: solid 1px #ced4da">
+                                <a th:href="@{'/book/' + ${book.IDBook}}" class="item-image">
+                                    <img th:src="@{'data:image/jpeg;base64,'+${book.image}}" alt="" />
+                                    <div class="discount" th:text="${book.category.name}">Book category...</div>
+                                </a>
+                                <div class="item-info">
+                                    <h4 class="item-title">
+                                        <a th:href="@{'/book/' + ${book.IDBook}}" th:text="${book.name}">Book name...</a>
+                                    </h4>
+                                    <h3 class="item-desc" th:text="${book.author.firstName + ' ' + book.author.lastName}">Book author...</h3>
+                                    <div class="item-price" th:text="${'€' + book.getFormattedPrice()}">Book price...</div>
+                                </div>
+                            </div>
+                            <!-- END item -->
+                        </div>
+                        <!-- END item-row -->
+                    </div>
+                    <!-- END category-item -->
+                </div>
+                <!-- END category-detail -->
+            </div>
+            <!-- END category-container -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #mobile-list -->
+</section>
+</body>
+</html>

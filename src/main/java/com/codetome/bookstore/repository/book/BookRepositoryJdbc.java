@@ -53,16 +53,25 @@ public class BookRepositoryJdbc implements BookRepository{
     }
 
     @Override
-    public Number saveNewBook(BookDto book) throws IOException { return saveNewBookDetails(book); }
-
-    @Override
-    public void updateBook(BookDto book) {
-
+    public Optional<List<Book>> findBooksByCategoryId(Long id) {
+        String query = SELECT_ALL_BOOKS + " WHERE b.CategoryID = " + id;
+        return Optional.of(jdbcTemplate.query(query, this::mapRowToBook));
     }
 
     @Override
-    public void deleteBookById(Long id) {
+    public Number saveNewBook(BookDto book) throws IOException { return saveNewBookDetails(book); }
 
+    @Override
+    public void updateBook(BookDto book) { updateBookDetails(book); }
+
+    @Override
+    public void deleteBookById(Long id) {
+        try {
+            String query = "DELETE FROM " + BOOK_TABLE_NAME + " WHERE " + BOOK_TABLE_NAME_ID + " = " + id;
+            jdbcTemplate.execute(query);
+        } catch (Exception e) {
+            System.out.printf("An error occurred while deleting the book");
+        }
     }
 
     private Book mapRowToBook(ResultSet result, int rowNum) throws SQLException {
@@ -98,5 +107,31 @@ public class BookRepositoryJdbc implements BookRepository{
         bookDetails.put("AuthorID", book.getAuthorID());
 
         return simpleJdbcInsert.execute(bookDetails);
+    }
+
+    private void updateBookDetails(BookDto book) {
+        try {
+            String query = "UPDATE book SET ISBN = ?, Name = ?, Price = ?, Quantity = ?, CategoryID = ?, AuthorID = ? WHERE " + BOOK_TABLE_NAME_ID + " = ?";
+            jdbcTemplate.update(
+                    query,
+                    book.getISBN(),
+                    book.getName(),
+                    book.getPrice(),
+                    book.getQuantity(),
+                    book.getCategoryID(),
+                    book.getAuthorID(),
+                    book.getIDBook()
+            );
+
+            if (!book.getImage().isEmpty()){
+                String query2 = "UPDATE book SET Image = ? WHERE " + BOOK_TABLE_NAME_ID + " = ?";
+                jdbcTemplate.update(
+                        query2,
+                        book.getBase64Image(),
+                        book.getIDBook()
+                );            }
+        } catch (Exception e) {
+            System.out.printf("An error occurred while updating the book");
+        }
     }
 }

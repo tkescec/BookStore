@@ -37,7 +37,7 @@
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">
-                    <form action="#" th:action="@{'/admin/book/update'}"  method="post">
+                    <form action="#" th:action="@{'/admin/book/update'}"  method="post" enctype="multipart/form-data">
                         <input type="hidden" name="IDBook" th:value="${book.IDBook}" id="IDBook" />
                         <div class="mb-3">
                             <label class="form-label" for="name">Book Name</label>
@@ -71,7 +71,26 @@
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Update category</button>
+                            <label class="form-label" for="price">Book Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">€</span>
+                                <input class="form-control" type="text" name="Price" th:value="${book.price}" id="price" placeholder="Enter book price" required/>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="quantity">Book Quantity</label>
+                            <input class="form-control" type="number" name="Quantity" th:value="${book.quantity}" id="quantity" placeholder="Enter book quantity" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="image">Book Image</label> <br>
+                            <img th:src="@{'data:image/jpeg;base64,'+${book.image}}" width="200"/>
+                            <input class="form-control" type="file" name="Image" id="image" accept="image/png, image/jpeg" />
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Update book</button>
                         </div>
 
                     </form>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Book</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #product -->
+    <div id="product" class="section-container pt-20px">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN product -->
+            <div class="product">
+                <!-- BEGIN product-detail -->
+                <div class="product-detail">
+                    <!-- BEGIN product-image -->
+                    <div class="product-image">
+
+                        <!-- BEGIN product-main-image -->
+                        <div class="product-main-image" data-id="main-image">
+                            <img th:src="@{'data:image/jpeg;base64,'+${book.image}}" alt="" />
+                        </div>
+                        <!-- END product-main-image -->
+                    </div>
+                    <!-- END product-image -->
+                    <!-- BEGIN product-info -->
+                    <div class="product-info">
+                        <!-- BEGIN product-info-header -->
+                        <div class="product-info-header">
+                            <h1 class="product-title">
+                                <span class="badge bg-primary" th:text="${book.category.name}">Category</span>
+                                <span th:text="${book.name}">Title</span>
+                            </h1>
+                            <h6 th:text="${book.author.firstName + ' ' + book.author.lastName}">Author</h6>
+                        </div>
+                        <!-- END product-info-header -->
+                        <!-- BEGIN product-warranty -->
+                        <div class="product-warranty">
+                            <div class="pull-right">
+                                In stock: <span th:text="${book.quantity}">Quantity</span>
+                            </div>
+                        </div>
+                        <!-- END product-warranty -->
+                        <!-- BEGIN product-purchase-container -->
+                        <div class="product-purchase-container">
+                            <div class="product-price">
+                                <div class="price" th:text="${'€' + book.getFormattedPrice()}">Price</div>
+                            </div>
+                            <a th:href="@{'/addToCart/' + ${book.IDBook}}" class="btn btn-dark btn-theme btn-lg w-200px">ADD TO CART</a>
+                        </div>
+                        <!-- END product-purchase-container -->
+                    </div>
+                    <!-- END product-info -->
+                </div>
+                <!-- END product-detail -->
+
+            </div>
+            <!-- END product -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #product -->
+</section>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.codetome.bookstore.controller.admin;
 
+import com.codetome.bookstore.controller.BaseController;
 import com.codetome.bookstore.domain.Author;
 import com.codetome.bookstore.domain.Book;
 import com.codetome.bookstore.domain.Category;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("admin/book")
 @AllArgsConstructor
-public class BookController extends BaseController{
+public class BookController extends BaseController {
     private BookRepository bookRepository;
     private CategoryRepository categoryRepository;
     private AuthorRepository authorRepository;
@@ -54,9 +55,21 @@ public class BookController extends BaseController{
         model.addAttribute("authors", authorList);
 
         if (book.isEmpty()){
-            return "redirect:/admin/category/index";
+            return "redirect:/admin/book/index";
         }
         model.addAttribute("book", book.get());
         return "admin/book/edit";
+    }
+
+    @PostMapping("update")
+    public String update(@ModelAttribute BookDto book) throws IOException {
+        bookRepository.updateBook(book);
+        return "redirect:/admin/book/index";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        bookRepository.deleteBookById(id);
+        return "redirect:/admin/book/index";
     }
 }

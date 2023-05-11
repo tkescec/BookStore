@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Cart</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #checkout-cart -->
+    <div class="section-container" id="checkout-cart">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN checkout -->
+            <div class="checkout">
+                <!-- BEGIN checkout-body -->
+                <div class="checkout-body">
+                    <div class="table-responsive" th:switch="${cart}">
+                        <h6 th:case="null">No books yet!</h6>
+                        <table class="table table-cart" th:case="*">
+                            <thead>
+                            <tr>
+                                <th>Book Name</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="data:${cart.items}">
+                                <td class="cart-product">
+                                    <div class="d-flex">
+                                        <div class="product-img h-150px w-100px d-flex align-items-center justify-content-center">
+                                            <img th:src="@{'data:image/jpeg;base64,'+${data.book.image}}" class="mw-100 mh-100" alt="" />
+                                        </div>
+                                        <div class="product-info ms-3">
+                                            <div class="title" th:text="${data.book.name}">Name</div>
+                                            <div class="desc" th:text="${data.book.author.firstName + ' ' + data.book.author.lastName}">Author</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cart-price text-center" th:text="${'€' + data.book.getFormattedPrice()}">Price</td>
+                                <td class="cart-qty text-center">
+                                    <div class="cart-qty-input">
+                                        <a href="#" class="qty-control left disabled"><i class="fa fa-minus"></i></a>
+                                        <input type="text" th:value="${data.book.quantity}" class="form-control" readonly/>
+                                        <a href="#" class="qty-control right disabled"><i class="fa fa-plus"></i></a>
+                                    </div>
+                                    <div class="qty-desc">1 to max order</div>
+                                </td>
+                                <td class="cart-total text-center">
+                                    Total
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cart-summary" colspan="4">
+                                    <div class="summary-container">
+                                        <div class="summary-row">
+                                            <div class="field">Cart Subtotal</div>
+                                            <div class="value">$999.00</div>
+                                        </div>
+                                        <div class="summary-row text-danger">
+                                            <div class="field">Free Shipping</div>
+                                            <div class="value">$0.00</div>
+                                        </div>
+                                        <div class="summary-row total">
+                                            <div class="field">Total</div>
+                                            <div class="value">$999.00</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END checkout-body -->
+                <!-- BEGIN checkout-footer -->
+                <div class="checkout-footer d-flex">
+                    <a href="/" class="btn btn-white btn-lg me-auto btn-theme w-250px">CONTINUE SHOPPING</a>
+                    <a href="/checkout" class="btn btn-dark btn-lg btn-theme w-250px">CHECKOUT</a>
+                </div>
+                <!-- END checkout-footer -->
+            </div>
+            <!-- END checkout -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #checkout-cart -->
+</section>
+</body>
+</html>

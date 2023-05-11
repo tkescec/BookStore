@@ -1,4 +1,4 @@
-package com.codetome.bookstore.controller.admin;
+package com.codetome.bookstore.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,6 @@
 package com.codetome.bookstore.controller.admin;
 
+import com.codetome.bookstore.controller.BaseController;
 import com.codetome.bookstore.domain.Category;
 import com.codetome.bookstore.repository.category.CategoryRepository;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("admin/category")
 @AllArgsConstructor
-public class CategoryController extends BaseController{
+public class CategoryController extends BaseController {
 
     private CategoryRepository categoryRepository;
     @GetMapping("index")

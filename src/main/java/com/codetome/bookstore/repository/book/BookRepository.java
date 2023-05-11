@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface BookRepository {
     List<Book> getAllBooks();
     Optional<Book> findBookById(Long id);
+    Optional<List<Book>> findBooksByCategoryId(Long id);
     Number saveNewBook(BookDto book) throws IOException;
     void updateBook(BookDto book);
     void deleteBookById(Long id);
