@@ -41,13 +41,13 @@
                                 <td class="cart-price text-center" th:text="${'€' + data.book.getFormattedPrice()}">Price</td>
                                 <td class="cart-qty text-center">
                                     <div class="cart-qty-input">
-                                        <a href="#" class="qty-control left disabled"><i class="fa fa-minus"></i></a>
-                                        <input type="text" th:value="${data.book.quantity}" class="form-control" readonly/>
-                                        <a href="#" class="qty-control right disabled"><i class="fa fa-plus"></i></a>
+                                        <a th:href="@{'/decreaseItemQuantityInCart/' + ${data.book.IDBook}}" class="qty-control left disabled"><i class="fa fa-minus"></i></a>
+                                        <input type="text" th:value="${data.quantity}" class="form-control" readonly/>
+                                        <a th:href="@{'/increaseItemQuantityInCart/' + ${data.book.IDBook}}" class="qty-control right disabled"><i class="fa fa-plus"></i></a>
                                     </div>
-                                    <div class="qty-desc">1 to max order</div>
+                                    <div class="qty-desc" th:text="${'1 to max ' + data.book.quantity}">1 to max order</div>
                                 </td>
-                                <td class="cart-total text-center">
+                                <td class="cart-total text-center" th:text="${'€' + data.getTotalFormatted()}">
                                     Total
                                 </td>
                             </tr>
@@ -56,7 +56,7 @@
                                     <div class="summary-container">
                                         <div class="summary-row">
                                             <div class="field">Cart Subtotal</div>
-                                            <div class="value">$999.00</div>
+                                            <div class="value" th:text="${'€' + cart.getTotalFormatted()}">$999.00</div>
                                         </div>
                                         <div class="summary-row text-danger">
                                             <div class="field">Free Shipping</div>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="summary-row total">
                                             <div class="field">Total</div>
-                                            <div class="value">$999.00</div>
+                                            <div class="value" th:text="${'€' + cart.getTotalFormatted()}">$999.00</div>
                                         </div>
                                     </div>
                                 </td>
@@ -87,5 +87,49 @@
     </div>
     <!-- END #checkout-cart -->
 </section>
+
+<div layout:fragment="javascript">
+    <script>
+        const increaseQuantity = document.querySelectorAll(".qty-control.right");
+
+        for (const increaseQuantityElement of increaseQuantity) {
+            increaseQuantityElement.addEventListener("click", (e) => {
+                e.preventDefault();
+                const url = e.target.href || e.target.parentNode.href;
+
+                fetch(url)
+                    .then((res) => res.text())
+                    .then((data) => {
+                        if (data == "true"){
+                            location.reload();
+                        } else {
+                            console.warn("Dodao si maksimalan broj knjiga")
+                        }
+                    })
+                    .catch((error) => console.warn("Nekaj ne radi!"))
+            })
+        }
+
+        const decreaseQuantity = document.querySelectorAll(".qty-control.left");
+
+        for (const decreaseQuantityElement of decreaseQuantity) {
+            decreaseQuantityElement.addEventListener("click", (e) => {
+                e.preventDefault();
+                const url = e.target.href || e.target.parentNode.href;
+
+                fetch(url)
+                    .then((res) => res.text())
+                    .then((data) => {
+                        if (data == "true"){
+                            location.reload();
+                        } else {
+                            console.warn("Nekaj ne radi!")
+                        }
+                    })
+                    .catch((error) => console.warn("Nekaj ne radi!"))
+            })
+        }
+    </script>
+</div>
 </body>
 </html>

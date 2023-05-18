@@ -83,7 +83,7 @@
                                                         <p class="price" th:text="${'€' + data.book.getFormattedPrice()}">Price</p>
                                                     </div>
                                                     <div class="cart-item-close">
-                                                        <a href="#" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
+                                                        <a th:href="@{'/deleteFromCart/' + ${data.book.IDBook}}" class="removeFromCartBtn" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -128,7 +128,7 @@
                 <!-- BEGIN container -->
                 <div class="container">
                     <div class="payment-method">
-                        <img src="img/payment/payment-method.png" alt="" />
+                        <img src="../img/payment/payment-method.png" alt="" />
                     </div>
                     <div class="copyright">
                         Copyright &copy; <span th:text="${#dates.year(#dates.createNow())}"></span> BookStore. All rights reserved.
@@ -142,5 +142,58 @@
         <!-- ================== BEGIN BASE JS ================== -->
         <script src="/js/vendor.min.js"></script>
         <script src="/js/app.min.js"></script>
+        <script src="/admin/plugins/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            (() => {
+                const removeFromCartBtns = document.querySelectorAll(".removeFromCartBtn");
+                for (const removeFromCartBtn of removeFromCartBtns) {
+                    removeFromCartBtn.addEventListener("click", (evt) => {
+                        evt.preventDefault();
+
+
+                        const url = evt.target.href;
+
+                        swal({
+                            title: 'Are you sure?',
+                            text: 'You will not be able to recover this action!',
+                            buttons: {
+                                cancel: {
+                                    text: 'Cancel',
+                                    value: null,
+                                    visible: true,
+                                    className: 'btn btn-default',
+                                    closeModal: true,
+                                },
+                                confirm: {
+                                    text: 'Delete',
+                                    value: true,
+                                    visible: true,
+                                    className: 'btn btn-danger',
+                                    closeModal: true
+                                }
+                            }
+                        }).then((result) => {
+                            if (result) {
+                                fetch(url)
+                                    .then((res) => res.text())
+                                    .then((data) => {
+                                        if (data == "true"){
+                                            location.reload();
+                                        } else {
+                                            console.warn("Nekaj ne radi!")
+                                        }
+                                    })
+                                    .catch((error) => console.warn("Nekaj ne radi!"))
+                            }
+                        });
+                    });
+                }
+            })()
+        </script>
+        <!-- ================== BEGIN page-js ================== -->
+        <div layout:fragment="javascript">
+
+        </div>
+        <!-- ================== END page-js ================== -->
     </body>
 </html>

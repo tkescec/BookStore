@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +23,18 @@ public class Book {
     public String getFormattedPrice() {
         DecimalFormat df= new DecimalFormat("0.00");
         return df.format(Price);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return getISBN().equals(book.getISBN());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getISBN());
     }
 }
