@@ -15,8 +15,9 @@ public class InvoiceDto {
     private Integer UserID;
     private Timestamp IssuedAt;
 
-    public InvoiceDto(Integer paymentID, Integer userID) {
+    public InvoiceDto(Integer paymentID, Integer userID, Timestamp issuedAt) {
         PaymentID = paymentID;
         UserID = userID;
+        IssuedAt = issuedAt;
     }
 }

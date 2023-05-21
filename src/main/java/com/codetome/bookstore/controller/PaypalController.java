@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
@@ -76,7 +77,8 @@ public class PaypalController extends BaseController {
             if (payment.getState().equals("approved")) {
                 InvoiceDto invoiceDto = new InvoiceDto(
                         2,
-                        2
+                        2,
+                        new Timestamp(System.currentTimeMillis())
                 );
                 Integer invoiceID = (Integer) invoiceRepository.saveNewInvoice(invoiceDto);
 
