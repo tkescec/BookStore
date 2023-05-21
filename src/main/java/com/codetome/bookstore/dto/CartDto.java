@@ -24,4 +24,14 @@ public class CartDto {
 
         return df.format(total);
     }
+
+    public Double getTotal(){
+        Double total = 0.00;
+
+        for (CartItemDto item : items) {
+            total += item.getTotal();
+        }
+
+        return total;
+    }
 }

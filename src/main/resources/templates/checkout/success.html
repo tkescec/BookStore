@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Success Payment</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #checkout-cart -->
+    <div class="section-container" id="checkout-cart">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN checkout -->
+            <div class="checkout">
+                <!-- BEGIN checkout-body -->
+                <div class="checkout-body">
+                    <!-- BEGIN checkout-message -->
+                    <div class="checkout-message">
+                        <h1>Thank you! <small>Your Payment has been successfully processed with the following details.</small></h1>
+                        <div class="table-responsive">
+                            <table class="table table-payment-summary">
+                                <tbody>
+                                <tr>
+                                    <td class="field">Transaction Status</td>
+                                    <td class="value">Success</td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Transaction Reference No.</td>
+                                    <td class="value" th:text="${payment.getId()}">REF000001</td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Transaction Date and Time</td>
+                                    <td class="value" th:text="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}">05 APR 2021 07:30PM</td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Orders</td>
+                                    <td class="value product-summary">
+                                        <div class="clearfix" th:each="data:${cart.items}">
+                                            <div class="product-summary-img h-150px w-100px d-flex align-items-center justify-content-center">
+                                                <img th:src="@{'data:image/jpeg;base64,'+${data.book.image}}" class="mw-100 mh-100" alt="" />
+                                            </div>
+                                            <div class="product-summary-info">
+                                                <div class="title" th:text="${data.book.name}">Title</div>
+                                                <div class="desc" th:text="${data.book.author.firstName + ' ' + data.book.author.lastName}">Author</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Payment Amount</td>
+                                    <td class="value" th:text="${'€' + cart.getTotalFormatted()}">$999.00</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-silver-darker text-center mb-0">Should you require any assistance, you can get in touch with Support Team at (123) 456-7890</p>
+                    </div>
+                    <!-- END checkout-message -->
+                </div>
+                <!-- END checkout-body -->
+                <!-- BEGIN checkout-footer -->
+                <div class="checkout-footer text-center">
+                    <a href="/user/orders" class="btn btn-white btn-theme">MANAGE ORDERS</a>
+                </div>
+                <!-- END checkout-footer -->
+            </div>
+            <!-- END checkout -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #checkout-cart -->
+</section>
+</body>
+</html>

@@ -24,6 +24,16 @@ public class BookDto {
     private Integer CategoryID;
     private Integer AuthorID;
 
+    public BookDto(Integer IDBook, String ISBN, String name, Double price, Integer quantity, Integer categoryID, Integer authorID) {
+        this.IDBook = IDBook;
+        this.ISBN = ISBN;
+        Name = name;
+        Price = price;
+        Quantity = quantity;
+        CategoryID = categoryID;
+        AuthorID = authorID;
+    }
+
     public String getBase64Image() throws IOException {
         byte[] image = Base64.encodeBase64(Image.getBytes(), true);
         return  new String(image);

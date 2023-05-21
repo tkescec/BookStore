@@ -9,14 +9,14 @@
     <!-- BEGIN #checkout-cart -->
     <div class="section-container" id="checkout-cart">
         <!-- BEGIN container -->
-        <div class="container">
+        <div class="container" th:switch="${cart}">
+            <h6 th:case="null">No books yet!</h6>
             <!-- BEGIN checkout -->
-            <div class="checkout">
+            <div class="checkout" th:case="*">
                 <!-- BEGIN checkout-body -->
-                <div class="checkout-body">
-                    <div class="table-responsive" th:switch="${cart}">
-                        <h6 th:case="null">No books yet!</h6>
-                        <table class="table table-cart" th:case="*">
+                <div class="checkout-body" >
+                    <div class="table-responsive">
+                        <table class="table table-cart">
                             <thead>
                             <tr>
                                 <th>Book Name</th>
@@ -72,12 +72,21 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label text-lg-end">Payment Types <span class="text-danger">*</span></label>
+                        <div class="col-md-8">
+                            <ul class="list-inline payment-type">
+                                <li class="active"><a href="#" data-click="set-payment" data-value="Paypal" data-toggle="tooltip" data-title="Paypal" data-placement="top" data-trigger="hover"><i class="fab fa-cc-paypal"></i></a></li>
+                            </ul>
+                            <input type="hidden" name="payment_type" value="" data-id="payment-type" />
+                        </div>
+                    </div>
                 </div>
                 <!-- END checkout-body -->
                 <!-- BEGIN checkout-footer -->
                 <div class="checkout-footer d-flex">
                     <a href="/" class="btn btn-white btn-lg me-auto btn-theme w-250px">CONTINUE SHOPPING</a>
-                    <a href="/checkout" class="btn btn-dark btn-lg btn-theme w-250px">CHECKOUT</a>
+                    <a href="/checkout/pay" class="btn btn-dark btn-lg btn-theme w-250px">PAY</a>
                 </div>
                 <!-- END checkout-footer -->
             </div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Cancel Payment</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #checkout-cart -->
+    <div class="section-container" id="checkout-cart">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN checkout -->
+            <div class="checkout">
+                <!-- BEGIN checkout-body -->
+                <div class="checkout-body">
+                    <!-- BEGIN checkout-message -->
+                    <div class="checkout-message">
+                        <h1>Sorry for the inconvenience!<small>Your payment has not been successfully processed.</small></h1>
+                        <div class="table-responsive">
+                            <table class="table table-payment-summary">
+                                <tbody>
+                                <tr>
+                                    <td class="field">Transaction Status</td>
+                                    <td class="value">Cancel</td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Transaction Date and Time</td>
+                                    <td class="value" th:text="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-silver-darker text-center mb-0">Should you require any assistance, you can get in touch with Support Team at (123) 456-7890</p>
+                    </div>
+                    <!-- END checkout-message -->
+                </div>
+                <!-- END checkout-body -->
+                <!-- BEGIN checkout-footer -->
+                <div class="checkout-footer text-center">
+                    <a href="user/orders" class="btn btn-white btn-theme">MANAGE ORDERS</a>
+                </div>
+                <!-- END checkout-footer -->
+            </div>
+            <!-- END checkout -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #checkout-cart -->
+</section>
+</body>
+</html>

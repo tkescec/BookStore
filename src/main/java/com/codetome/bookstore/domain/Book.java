@@ -18,6 +18,12 @@ public class Book {
     private Integer Quantity;
     private String Image;
     private Category category;
+
+    public Book(Integer IDBook, String name) {
+        this.IDBook = IDBook;
+        Name = name;
+    }
+
     private Author author;
 
     public String getFormattedPrice() {

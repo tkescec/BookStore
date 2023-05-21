@@ -11,7 +11,12 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Invoice {
     private Integer IDInvoice;
-    private Timestamp IssuedAt;
     private Payment payment;
     private User user;
+    private Timestamp IssuedAt;
+
+    public Invoice(Integer IDInvoice, Timestamp issuedAt) {
+        this.IDInvoice = IDInvoice;
+        IssuedAt = issuedAt;
+    }
 }

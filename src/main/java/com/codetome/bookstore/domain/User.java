@@ -16,4 +16,9 @@ public class User {
     private Role role;
     private City city;
 
+    public User(Integer IDUser, String firstName, String lastName) {
+        this.IDUser = IDUser;
+        FirstName = firstName;
+        LastName = lastName;
+    }
 }
