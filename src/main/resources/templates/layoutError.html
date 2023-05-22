@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Layout page</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+
+        <!-- ================== BEGIN core-css ================== -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <link href="/css/vendor.min.css" rel="stylesheet" />
+        <link href="/css/app.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- BEGIN #page-container -->
+        <div id="page-container" class="fade show">
+            <!-- BEGIN #header -->
+            <div id="header" class="header">
+                <!-- BEGIN container -->
+                <div class="container">
+                    <!-- BEGIN header-container -->
+                    <div class="header-container">
+                        <!-- BEGIN navbar-toggle -->
+                        <button type="button" class="navbar-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- END navbar-toggle -->
+                        <!-- BEGIN header-logo -->
+                        <div class="header-logo">
+                            <a href="/">
+                                <span class="brand-logo"></span>
+                                <span class="brand-text">
+                                        <span>Book</span>Store
+                                        <small>book e-commerce solution</small>
+                                    </span>
+                            </a>
+                        </div>
+                        <!-- END header-logo -->
+
+                        <!-- BEGIN header-nav -->
+                        <div class="header-nav">
+                            <ul class="nav justify-content-end">
+                                <li class="divider"></li>
+<!--                                <li>-->
+<!--                                    <a href="#">-->
+<!--                                        <img src="../img/user/user-1.jpg" class="user-img" alt="" />-->
+<!--                                    </a>-->
+<!--                                </li>-->
+                                <li sec:authorize="!isAuthenticated()">
+                                    <a href="auth/login" style="display: inline; padding: 0 0 0 16px">Login</a>
+                                </li>
+                                <li sec:authorize="isAuthenticated()">
+                                    <span sec:authentication="name" style="display: inline; padding: 0 0 0 16px; font-weight: bold" >Bob</span>
+<!--                                    <a href="auth/logout" style="display: inline; padding: 0 0 0 16px">Logout</a>-->
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END header-nav -->
+                    </div>
+                    <!-- END header-container -->
+                </div>
+                <!-- END container -->
+            </div>
+            <!-- END #header -->
+
+            <section layout:fragment="content">
+                <p>Page content goes here</p>
+            </section>
+
+        </div>
+        <!-- END #page-container -->
+        <!-- ================== BEGIN BASE JS ================== -->
+        <script src="/js/vendor.min.js"></script>
+        <script src="/js/app.min.js"></script>
+        <!-- ================== BEGIN page-js ================== -->
+        <div layout:fragment="javascript">
+
+        </div>
+        <!-- ================== END page-js ================== -->
+    </body>
+</html>

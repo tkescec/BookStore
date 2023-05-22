@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #my-account -->
+    <div id="about-us-cover" class="section-container pt-20px">
+        <!-- BEGIN container -->
+        <div class="container">
+                        <!-- BEGIN account-container -->
+            <div class="account-container">
+                <!-- BEGIN account-sidebar -->
+                <div class="account-sidebar">
+                    <div class="account-sidebar-cover">
+                        <img src="../assets/img/cover/cover-14.jpg" alt="" />
+                    </div>
+                    <div class="account-sidebar-content">
+                        <h4 class="mb-1 mb-lg-3">Sign In</h4>
+                        <p class="mb-0 mb-md-2 mb-lg-3">
+                            Sign in so that you can easily buy a books.
+                        </p>
+                        <p class="mb-0 mb-lg-3">
+                            All you need in one place. All with a few simple clicks.
+                        </p>
+                    </div>
+                </div>
+                <!-- END account-sidebar -->
+                <!-- BEGIN account-body -->
+                <div class="account-body">
+                    <div class="row" th:if="${param.error}">
+                        <div class="col-md-12">
+                            Invalid username and password.
+                        </div>
+                    </div>
+                    <div class="row" th:if="${param.logout}">
+                        <div class="col-md-12">
+                            You have been logged out.
+                        </div>
+                    </div>
+                    <!-- BEGIN row -->
+                    <div class="row">
+                        <!-- BEGIN col-6 -->
+                        <div class="col-md-12">
+                            <form th:action="@{/auth/login/process}" method="post">
+                                <div class="form-floating mb-20px">
+                                    <input type="text" name="username" class="form-control fs-13px h-45px w-lg-300px" id="username" placeholder="Username" />
+                                    <label for="username" class="d-flex align-items-center py-0">Username</label>
+                                </div>
+                                <div class="form-floating mb-20px">
+                                    <input type="password" name="password" class="form-control fs-13px h-45px w-lg-300px" id="password" placeholder="Password" />
+                                    <label for="password" class="d-flex align-items-center py-0">Password</label>
+                                </div>
+                                <div class="login-buttons">
+                                    <button type="submit" class="btn h-45px btn-success d-block w-100 btn-lg">Sign me in</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END col-6 -->
+                    </div>
+                    <!-- END row -->
+                </div>
+                <!-- END account-body -->
+            </div>
+            <!-- END account-container -->
+        </div>
+        <!-- END container -->
+    </div>
+</section>
+</body>
+</html>

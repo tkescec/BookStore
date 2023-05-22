@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class CartController extends BaseController {
     private static final String CART_SESSION = "_cart";
     private BookRepository bookRepository;
     private CategoryRepository categoryRepository;
-    @GetMapping("addToCart/{id}")
+    @GetMapping("cart/addToCart/{id}")
     public String addBookToCart(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Book> book = bookRepository.findBookById(id);
 
@@ -71,7 +72,7 @@ public class CartController extends BaseController {
 
         return "redirect:/cart";
     }
-    @GetMapping("cart")
+    @GetMapping("/cart")
     public String cart(Model model, HttpSession session) {
         List<Category> categoryList = categoryRepository.getAllCategories();
         model.addAttribute("allCategories", categoryList);
@@ -82,7 +83,7 @@ public class CartController extends BaseController {
         return "cart";
     }
 
-    @GetMapping("deleteFromCart/{id}")
+    @GetMapping("cart/deleteFromCart/{id}")
     @ResponseBody
     public String deleteFromCart(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Book> book = bookRepository.findBookById(id);
@@ -106,7 +107,7 @@ public class CartController extends BaseController {
         return "true";
     }
 
-    @GetMapping("increaseItemQuantityInCart/{id}")
+    @GetMapping("cart/increaseItemQuantityInCart/{id}")
     @ResponseBody
     public String increaseItemQuantityInCart(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Book> book = bookRepository.findBookById(id);
@@ -134,7 +135,7 @@ public class CartController extends BaseController {
         return "false";
     }
 
-    @GetMapping("decreaseItemQuantityInCart/{id}")
+    @GetMapping("cart/decreaseItemQuantityInCart/{id}")
     @ResponseBody
     public String decreaseItemQuantityInCart(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Book> book = bookRepository.findBookById(id);

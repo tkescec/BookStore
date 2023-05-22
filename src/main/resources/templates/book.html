@@ -47,7 +47,7 @@
                             <div class="product-price">
                                 <div class="price" th:text="${'€' + book.getFormattedPrice()}">Price</div>
                             </div>
-                            <a th:href="@{'/addToCart/' + ${book.IDBook}}" class="btn btn-dark btn-theme btn-lg w-200px"
+                            <a th:href="@{'/cart/addToCart/' + ${book.IDBook}}" class="btn btn-dark btn-theme btn-lg w-200px"
                                th:if="${book.getQuantity() > 0}">ADD TO CART</a>
                         </div>
                         <!-- END product-purchase-container -->

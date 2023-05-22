@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8" />
         <title>Layout page</title>
@@ -83,7 +83,7 @@
                                                         <p class="price" th:text="${'€' + data.book.getFormattedPrice()}">Price</p>
                                                     </div>
                                                     <div class="cart-item-close">
-                                                        <a th:href="@{'/deleteFromCart/' + ${data.book.IDBook}}" class="removeFromCartBtn" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
+                                                        <a th:href="@{'/cart/deleteFromCart/' + ${data.book.IDBook}}" class="removeFromCartBtn" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -106,8 +106,12 @@
 <!--                                        <img src="../img/user/user-1.jpg" class="user-img" alt="" />-->
 <!--                                    </a>-->
 <!--                                </li>-->
-                                <li>
-                                    <a href="#" style="display: inline; padding: 0 0 0 16px">Login</a> / <a href="#" style="display: inline; padding: 0">Register</a>
+                                <li sec:authorize="!isAuthenticated()">
+                                    <a href="auth/login" style="display: inline; padding: 0 0 0 16px">Login</a>
+                                </li>
+                                <li sec:authorize="isAuthenticated()">
+                                    <span sec:authentication="name" style="display: inline; padding: 0 0 0 16px; font-weight: bold" >Bob</span>
+<!--                                    <a href="auth/logout" style="display: inline; padding: 0 0 0 16px">Logout</a>-->
                                 </li>
                             </ul>
                         </div>
@@ -142,7 +146,7 @@
         <!-- ================== BEGIN BASE JS ================== -->
         <script src="/js/vendor.min.js"></script>
         <script src="/js/app.min.js"></script>
-        <script src="/admin/plugins/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="/plugins/sweetalert/dist/sweetalert.min.js"></script>
         <script>
             (() => {
                 const removeFromCartBtns = document.querySelectorAll(".removeFromCartBtn");

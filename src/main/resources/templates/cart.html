@@ -41,9 +41,9 @@
                                 <td class="cart-price text-center" th:text="${'€' + data.book.getFormattedPrice()}">Price</td>
                                 <td class="cart-qty text-center">
                                     <div class="cart-qty-input">
-                                        <a th:href="@{'/decreaseItemQuantityInCart/' + ${data.book.IDBook}}" class="qty-control left disabled"><i class="fa fa-minus"></i></a>
+                                        <a th:href="@{'/cart/decreaseItemQuantityInCart/' + ${data.book.IDBook}}" class="qty-control left disabled"><i class="fa fa-minus"></i></a>
                                         <input type="text" th:value="${data.quantity}" class="form-control" readonly/>
-                                        <a th:href="@{'/increaseItemQuantityInCart/' + ${data.book.IDBook}}" class="qty-control right disabled"><i class="fa fa-plus"></i></a>
+                                        <a th:href="@{'/cart/increaseItemQuantityInCart/' + ${data.book.IDBook}}" class="qty-control right disabled"><i class="fa fa-plus"></i></a>
                                     </div>
                                     <div class="qty-desc" th:text="${'1 to max ' + data.book.quantity}">1 to max order</div>
                                 </td>

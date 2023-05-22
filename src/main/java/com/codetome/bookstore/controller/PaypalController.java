@@ -1,17 +1,21 @@
 package com.codetome.bookstore.controller;
 
 import com.codetome.bookstore.domain.Category;
+import com.codetome.bookstore.domain.User;
 import com.codetome.bookstore.dto.*;
 import com.codetome.bookstore.repository.book.BookRepository;
 import com.codetome.bookstore.repository.category.CategoryRepository;
 import com.codetome.bookstore.repository.invoice.InvoiceRepository;
 import com.codetome.bookstore.repository.item.ItemRepository;
+import com.codetome.bookstore.repository.user.UserRepository;
 import com.codetome.bookstore.service.PaypalService;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +26,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -31,6 +36,7 @@ public class PaypalController extends BaseController {
     private ItemRepository itemRepository;
     private BookRepository bookRepository;
     private CategoryRepository categoryRepository;
+    private UserRepository userRepository;
 
     private static final String CART_SESSION = "_cart";
     public static final String SUCCESS_URL = "checkout/pay/success";
@@ -72,12 +78,14 @@ public class PaypalController extends BaseController {
     @GetMapping(value = SUCCESS_URL)
     public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, Model model, HttpSession session) {
         try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Optional<User> user = userRepository.findUserByUsername(auth.getName());
             Payment payment = service.executePayment(paymentId, payerId);
             System.out.println(payment.toJSON());
             if (payment.getState().equals("approved")) {
                 InvoiceDto invoiceDto = new InvoiceDto(
                         2,
-                        2,
+                        user.get().getIDUser(),
                         new Timestamp(System.currentTimeMillis())
                 );
                 Integer invoiceID = (Integer) invoiceRepository.saveNewInvoice(invoiceDto);
@@ -117,7 +125,7 @@ public class PaypalController extends BaseController {
                 }
                 List<Category> categoryList = categoryRepository.getAllCategories();
                 model.addAttribute("allCategories", categoryList);
-                model.addAttribute("cart", cart);
+                model.addAttribute("order", cart);
                 model.addAttribute("payment", payment);
                 model.addAttribute("localDateTime", LocalDateTime.now());
                 session.setAttribute(CART_SESSION, null);

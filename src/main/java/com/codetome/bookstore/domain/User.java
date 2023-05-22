@@ -9,16 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
     private Integer IDUser;
-    private String FirstName;
-    private String LastName;
-    private String Email;
-    private String Password;
-    private Role role;
-    private City city;
+    private String username;
+    private String password;
+    private Integer enabled;
 
-    public User(Integer IDUser, String firstName, String lastName) {
+
+    public User(Integer IDUser, String username) {
         this.IDUser = IDUser;
-        FirstName = firstName;
-        LastName = lastName;
+        this.username = username;
     }
 }

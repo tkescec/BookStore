@@ -74,8 +74,7 @@ public class InvoiceRepositoryJdbc implements InvoiceRepository{
                 ),
                 new User(
                         result.getInt("IDUser"),
-                        result.getString("FirstName"),
-                        result.getString("LastName")
+                        result.getString("username")
                 ),
                 result.getTimestamp("IssuedAt")
         );
@@ -86,7 +85,7 @@ public class InvoiceRepositoryJdbc implements InvoiceRepository{
 
         invoiceDetails.put(INVOICE_TABLE_NAME_ID, invoice.getIDInvoice());
         invoiceDetails.put("PaymentID", invoice.getPaymentID());
-        invoiceDetails.put("UserID", invoice.getUserID());
+        invoiceDetails.put("UserId", invoice.getUserID());
         invoiceDetails.put("IssuedAt", invoice.getIssuedAt());
 
         return simpleJdbcInsert.executeAndReturnKey(invoiceDetails).intValue();

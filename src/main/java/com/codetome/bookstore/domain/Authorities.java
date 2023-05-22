@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Authorities {
     private Integer IDRole;
-    private String Name;
+    private String username;
+    private String authority;
 }
