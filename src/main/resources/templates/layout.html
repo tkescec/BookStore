@@ -54,6 +54,12 @@
                                             <a class="dropdown-item" th:each="category:${allCategories}" th:href="@{'/category/' + ${category.IDCategory}}" th:text="${category.name}">Category name...</a>
                                         </div>
                                     </li>
+                                    <li sec:authorize="hasAuthority('USER_ROLE')" th:classappend="${requestUri == '/user/orders' ? 'active':''}">
+                                        <a href="/user/orders">My Orders</a>
+                                    </li>
+                                    <li sec:authorize="hasAuthority('ADMIN_ROLE')">
+                                        <a href="/admin/dashboard">Dashboard</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -110,8 +116,18 @@
                                     <a href="auth/login" style="display: inline; padding: 0 0 0 16px">Login</a>
                                 </li>
                                 <li sec:authorize="isAuthenticated()">
-                                    <span sec:authentication="name" style="display: inline; padding: 0 0 0 16px; font-weight: bold" >Bob</span>
-<!--                                    <a href="auth/logout" style="display: inline; padding: 0 0 0 16px">Logout</a>-->
+                                    <a href="/user/orders" sec:authorize="hasAuthority('USER_ROLE')">
+                                        <span sec:authentication="name" style="display: inline; padding: 0 0 0 16px; font-weight: bold" >Bob</span>
+                                    </a>
+                                    <a href="/admin/dashboard" sec:authorize="hasAuthority('ADMIN_ROLE')">
+                                        <span sec:authentication="name" style="display: inline; padding: 0 0 0 16px; font-weight: bold" >Bob</span>
+                                    </a>
+                                </li>
+                                <li sec:authorize="isAuthenticated()">
+                                    <a href="javascript: document.logoutForm.submit()" role="menuitem" class="dropdown-item">Logout</a>
+                                    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                                        <input hidden type="submit" value="Sign Out"/>
+                                    </form>
                                 </li>
                             </ul>
                         </div>

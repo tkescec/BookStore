@@ -49,7 +49,12 @@ public class WebSecurityConfig {
                         .loginProcessingUrl("/auth/login/process")
                         .defaultSuccessUrl("/",true)
                         .permitAll())
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        .permitAll()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"));
 
         return http.build();
     }

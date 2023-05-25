@@ -75,40 +75,41 @@
 
     <div layout:fragment="javascript">
         <script>
-            const deleteCategory = document.querySelectorAll(".deleteCategory");
+            setTimeout(() => {
+                const deleteCategory = document.querySelectorAll(".deleteCategory");
 
-            for (const deleteCategoryElement of deleteCategory) {
-                deleteCategoryElement.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const href = e.target.href;
+                for (const deleteCategoryElement of deleteCategory) {
+                    deleteCategoryElement.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        const href = e.target.href;
 
-                    swal({
-                        title: 'Are you sure?',
-                        text: 'You will not be able to recover this action!',
-                        buttons: {
-                            cancel: {
-                                text: 'Cancel',
-                                value: null,
-                                visible: true,
-                                className: 'btn btn-default',
-                                closeModal: true,
-                            },
-                            confirm: {
-                                text: 'Delete',
-                                value: true,
-                                visible: true,
-                                className: 'btn btn-danger',
-                                closeModal: true
+                        swal({
+                            title: 'Are you sure?',
+                            text: 'You will not be able to recover this action!',
+                            buttons: {
+                                cancel: {
+                                    text: 'Cancel',
+                                    value: null,
+                                    visible: true,
+                                    className: 'btn btn-default',
+                                    closeModal: true,
+                                },
+                                confirm: {
+                                    text: 'Delete',
+                                    value: true,
+                                    visible: true,
+                                    className: 'btn btn-danger',
+                                    closeModal: true
+                                }
                             }
-                        }
-                    }).then((result) => {
-                        if (result) {
-                            location.assign(href);
-                        }
-                    });
-                })
-            }
-
+                        }).then((result) => {
+                            if (result) {
+                                location.assign(href);
+                            }
+                        });
+                    })
+                }
+            },500)
         </script>
     </div>
 </body>

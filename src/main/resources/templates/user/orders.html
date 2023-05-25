@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!-- BEGIN #checkout-cart -->
+    <div class="section-container" id="checkout-cart">
+        <!-- BEGIN container -->
+        <div class="container">
+            <!-- BEGIN section-title -->
+            <h4 class="section-title clearfix">
+                <span class="flex-1">
+                    Orders
+                </span>
+            </h4>
+            <!-- END section-title -->
+            <!-- BEGIN checkout -->
+            <div class="checkout">
+                <!-- BEGIN checkout-body -->
+                <div class="checkout-body" >
+                    <!-- BEGIN table-responsive -->
+                    <div class="table-responsive" th:switch="${orders}">
+                        <h2 th:case="null">No orders yet!</h2>
+                        <table class="table table-striped mb-0 align-middle" th:case="*">
+                            <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>IssuedAt</th>
+                            </tr>
+                            </thead>
+                            <tbody th:switch="${orders}">
+                            <tr th:each="order:${orders}">
+                                <td th:text="${order.getIDInvoice()}">Invoice id ..</td>
+                                <td th:text="${order.getPayment().getName()}">Payment type...</td>
+                                <td th:text="${'€' + order.getTotalFormatted()}">Total...</td>
+                                <td th:text="${#temporals.format(order.getLocaleDateTime(), 'dd-MM-yyyy HH:mm')}">Date...</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END table-responsive -->
+                </div>
+                <!-- END checkout-body -->
+            </div>
+            <!-- END checkout -->
+        </div>
+        <!-- END container -->
+    </div>
+    <!-- END #checkout-cart -->
+</section>
+</body>
+</html>

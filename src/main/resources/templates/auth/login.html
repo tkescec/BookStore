@@ -32,12 +32,17 @@
                 <div class="account-body">
                     <div class="row" th:if="${param.error}">
                         <div class="col-md-12">
-                            Invalid username and password.
+                            <div class="alert alert-danger">
+                                Invalid username and password.
+                            </div>
+
                         </div>
                     </div>
                     <div class="row" th:if="${param.logout}">
                         <div class="col-md-12">
-                            You have been logged out.
+                            <div class="alert success">
+                                You have been logged out.
+                            </div>
                         </div>
                     </div>
                     <!-- BEGIN row -->

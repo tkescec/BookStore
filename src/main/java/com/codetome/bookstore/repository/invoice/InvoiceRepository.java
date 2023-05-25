@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface InvoiceRepository {
     List<Invoice> getAllInvoices();
-    Optional<Invoice> findInvoiceById(Long id);
-    List<Invoice> findInvoicesByUserId(Long userId);
+    Optional<Invoice> findInvoiceById(Integer id);
+    List<Invoice> findInvoicesByUserId(Integer userId);
     Number saveNewInvoice(InvoiceDto invoice) throws IOException;
 }

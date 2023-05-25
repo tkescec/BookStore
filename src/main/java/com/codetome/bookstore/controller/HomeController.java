@@ -19,7 +19,6 @@ import java.util.*;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes({"role"})
 public class HomeController extends BaseController{
     private static final String CART_SESSION = "_cart";
     private BookRepository bookRepository;

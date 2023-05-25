@@ -24,12 +24,14 @@ public class InvoiceRepositoryJdbc implements InvoiceRepository{
     private static final String INVOICE_TABLE_NAME = "invoice";
     private static final String INVOICE_TABLE_NAME_ID = "IDInvoice";
     private static final String SELECT_ALL_INVOICES =
-                    "SELECT i.IDInvoice, p.IDPayment, p.Name, u.IDUser, u.FirstName, u.LastName, i.IssuedAt" +
+                    "SELECT i.IDInvoice, p.IDPayment, p.Name, u.IDUser, u.username, u.FirstName, u.LastName, i.IssuedAt, SUM(it.TotalPrice) as Total " +
                     "FROM `invoice` as i " +
-                    "inner JOIN `payment` as p " +
+                    "INNER JOIN `payment` as p " +
                     "ON i.PaymentID = p.IDPayment " +
                     "INNER JOIN `user` as u " +
-                    "ON i.UserID = u.IDUser";
+                    "ON i.UserID = u.IDUser " +
+                    "INNER JOIN `item` as it " +
+                    "ON i.IDInvoice =it.InvoiceID";
 
     private JdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
@@ -43,19 +45,21 @@ public class InvoiceRepositoryJdbc implements InvoiceRepository{
 
     @Override
     public List<Invoice> getAllInvoices() {
-        return jdbcTemplate.query(SELECT_ALL_INVOICES, this::mapRowToInvoice);
+        String query = SELECT_ALL_INVOICES + " GROUP BY it.InvoiceID";
+
+        return jdbcTemplate.query(query, this::mapRowToInvoice);
     }
 
     @Override
-    public Optional<Invoice> findInvoiceById(Long id) {
-        String query = SELECT_ALL_INVOICES + " WHERE i." + INVOICE_TABLE_NAME_ID + " = " + id;
+    public Optional<Invoice> findInvoiceById(Integer id) {
+        String query = SELECT_ALL_INVOICES + " WHERE i." + INVOICE_TABLE_NAME_ID + " = " + id + " GROUP BY it.InvoiceID";
 
         return jdbcTemplate.query(query, this::mapRowToInvoice).stream().findFirst();
     }
 
     @Override
-    public List<Invoice> findInvoicesByUserId(Long userId) {
-        String query = SELECT_ALL_INVOICES + " WHERE i.UserID = " + userId;
+    public List<Invoice> findInvoicesByUserId(Integer userId) {
+        String query = SELECT_ALL_INVOICES + " WHERE i.UserID = " + userId  + " GROUP BY it.InvoiceID";
 
         return jdbcTemplate.query(query, this::mapRowToInvoice);
     }
@@ -74,9 +78,12 @@ public class InvoiceRepositoryJdbc implements InvoiceRepository{
                 ),
                 new User(
                         result.getInt("IDUser"),
-                        result.getString("username")
+                        result.getString("username"),
+                        result.getString("FirstName"),
+                        result.getString("LastName")
                 ),
-                result.getTimestamp("IssuedAt")
+                result.getTimestamp("IssuedAt"),
+                result.getDouble("Total")
         );
     }
 

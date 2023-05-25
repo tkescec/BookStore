@@ -1,22 +1,23 @@
-package com.codetome.bookstore.domain;
+package com.codetome.bookstore.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Log {
+public class LogDto {
     private Integer IDLog;
     private String Ip;
     private Timestamp LastLogin;
-    private User user;
+    private Integer UserID;
 
-    public LocalDateTime getLocaleDateTime(){
-        return LastLogin.toLocalDateTime();
+    public LogDto(String ip, Timestamp lastLogin, Integer userID) {
+        Ip = ip;
+        LastLogin = lastLogin;
+        UserID = userID;
     }
 }
